@@ -1,0 +1,29 @@
+{
+  "name": "google-calendar-node",
+  "version": "1.0.0",
+  "description": "A simple app to demonstrate use of Google Calendar API",
+  "main": "google.js",
+  "dependencies": {
+    "express": "^4.17.3",
+    "googleapis": "^99.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kstheking/google-calendar-node.git"
+  },
+  "keywords": [
+    "google-calendar",
+    "node",
+    "googleapi"
+  ],
+  "author": "Khushal Sahni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kstheking/google-calendar-node/issues"
+  },
+  "homepage": "https://github.com/Kstheking/google-calendar-node#readme"
+}

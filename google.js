@@ -60,19 +60,13 @@ function authorize(credentials, callback) {
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getAccessToken(oAuth2Client, callback);
+    if (err) return getAccessToken();
     oAuth2Client.setCredentials(JSON.parse(token));
-    callback(oAuth2Client);
+    callback();
   });
 }
 
-/**
- * Get and store new token after prompting for user authorization, and then
- * execute the given callback with the authorized OAuth2 client.
- * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
- * @param {getEventsCallback} callback The callback for the authorized client.
- */
-function getAccessToken(oAuth2Client, callback) {
+function getAccessToken() {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
@@ -80,8 +74,8 @@ function getAccessToken(oAuth2Client, callback) {
   console.log('Authorize this app by visiting this url:', authUrl);
 }
 
-const scheduleMeeting = (auth) => {
-    const calendar = google.calendar({version: 'v3', auth});
+const scheduleMeeting = () => {
+    const calendar = google.calendar({version: 'v3', auth: oAuth2Client});
 
     calendar.events.insert({
         calendarId: yourEmail,
@@ -97,8 +91,8 @@ const scheduleMeeting = (auth) => {
     
 }
 
-const deleteMeeting = (auth, eventId) => {
-    const calendar = google.calendar({version: 'v3', auth});
+const deleteMeeting = (eventId) => {
+    const calendar = google.calendar({version: 'v3', auth: oAuth2Client});
 
     calendar.events.delete({
         calendarId: yourEmail,
@@ -120,7 +114,7 @@ app.get('/auth/google/callback', (req, res) => {
           if (err) return console.error(err);
           console.log('Token stored to', TOKEN_PATH);
         });
-        scheduleMeeting(oAuth2Client);
+        scheduleMeeting();
       });
 
     

@@ -10,23 +10,23 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-const yourEmail = "youremailhere@gmail.com";
+const yourEmail = "kstheking0@gmail.com";
 
-var event = {
+let event = {
     'summary': 'Google I/O 2015',
     'location': '800 Howard St., San Francisco, CA 94103',
     'description': 'A chance to hear more about Google\'s developer products.',
     'start': {
-      'dateTime': `'2022-04-25T09:00:00-07:00'`,
+      'dateTime': '2022-03-26T09:00:00-07:00',
       'timeZone': 'America/Los_Angeles',
     },
     'end': {
-      'dateTime': '2022-04-25T17:00:00-07:00',
+      'dateTime': '2022-03-26T17:00:00-07:00',
       'timeZone': 'America/Los_Angeles',
     },
     'attendees': [
-      {'email': 'dummyemail@gmail.com'},
-      {'email': 'amotherdummyemail@gmail.com'},
+      {'email': 'lpage@example.com'},
+      {'email': 'sbrin@example.com'},
     ],
     'reminders': {
       'useDefault': false,
@@ -50,6 +50,8 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
+
+let oAuth2Client;
 
 function authorize(credentials, callback) {
   const {client_secret, client_id, redirect_uris} = credentials.web;
@@ -108,6 +110,7 @@ const deleteMeeting = (auth, eventId) => {
 }
 
 app.get('/auth/google/callback', (req, res) => {
+    res.send("Meeting has been Scheduled!");
     const code = req.query.code;
     oAuth2Client.getToken(code, (err, token) => {
         if (err) return console.error('Error retrieving access token', err);
@@ -120,7 +123,7 @@ app.get('/auth/google/callback', (req, res) => {
         scheduleMeeting(oAuth2Client);
       });
 
-    res.send("Meeting has been Scheduled!");
+    
 })
 
 app.listen(8000, () => {

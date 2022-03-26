@@ -10,7 +10,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-const yourEmail = "kstheking0@gmail.com";
+const yourEmail = "placeholder@gmail.com";
 
 let event = {
     'summary': 'Google I/O 2015',
